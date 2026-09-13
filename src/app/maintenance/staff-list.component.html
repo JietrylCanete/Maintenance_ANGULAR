@@ -1,0 +1,248 @@
+<div class="container">
+
+<h2 class="mb-4">My Assigned Maintenance Requests</h2>
+
+<div *ngIf="error" class="alert alert-danger">
+    {{ error }}
+</div>
+
+<div *ngIf="loading" class="text-center">
+    Loading assigned maintenance requests...
+</div>
+
+<div *ngIf="!loading && requests.length === 0" class="alert alert-info">
+    No maintenance requests assigned to you.
+</div>
+
+<div *ngIf="!loading && requests.length > 0" class="kanban-board">
+
+    <!-- Pending -->
+    <div class="kanban-column">
+
+        <div class="kanban-header">
+            <h4>Pending</h4>
+        </div>
+
+        <div
+            id="staffPendingList"
+            cdkDropList
+            [cdkDropListData]="'Pending'"
+            [cdkDropListConnectedTo]="[
+                'staffPendingList',
+                'staffProgressList',
+                'staffResolvedList'
+            ]"
+            (cdkDropListDropped)="drop($event)"
+            class="kanban-list"
+        >
+
+            <div
+                *ngFor="let request of requests"
+                [hidden]="request.status !== 'Pending'"
+                cdkDrag
+                [cdkDragData]="request"
+                class="maintenance-card"
+            >
+
+                <h5>{{ request.title }}</h5>
+
+                <p>{{ request.description }}</p>
+
+                <hr>
+
+                <p>
+                    <strong>Location:</strong>
+                    {{ request.location }}
+                </p>
+
+                <p>
+                    <strong>Category:</strong>
+                    {{ request.category }}
+                </p>
+
+                <p>
+                    <strong>Priority:</strong>
+                    {{ request.priority }}
+                </p>
+
+                <p>
+                    <strong>Status:</strong>
+                    {{ request.status }}
+                </p>
+
+                <p>
+                    <strong>Assigned To:</strong>
+                    You
+                </p>
+
+                <p>
+                    <strong>AI Reason:</strong>
+                    {{ request.aiReason }}
+                </p>
+
+                <button
+                    class="btn btn-primary"
+                    (click)="updateStatus(request.RequestId, 'In Progress')"
+                >
+                    Start Request
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- In Progress -->
+    <div class="kanban-column">
+
+        <div class="kanban-header">
+            <h4>In Progress</h4>
+        </div>
+
+        <div
+            id="staffProgressList"
+            cdkDropList
+            [cdkDropListData]="'In Progress'"
+            [cdkDropListConnectedTo]="[
+                'staffPendingList',
+                'staffProgressList',
+                'staffResolvedList'
+            ]"
+            (cdkDropListDropped)="drop($event)"
+            class="kanban-list"
+        >
+
+            <div
+                *ngFor="let request of requests"
+                [hidden]="request.status !== 'In Progress'"
+                cdkDrag
+                [cdkDragData]="request"
+                class="maintenance-card"
+            >
+
+                <h5>{{ request.title }}</h5>
+
+                <p>{{ request.description }}</p>
+
+                <hr>
+
+                <p>
+                    <strong>Location:</strong>
+                    {{ request.location }}
+                </p>
+
+                <p>
+                    <strong>Category:</strong>
+                    {{ request.category }}
+                </p>
+
+                <p>
+                    <strong>Priority:</strong>
+                    {{ request.priority }}
+                </p>
+
+                <p>
+                    <strong>Status:</strong>
+                    {{ request.status }}
+                </p>
+
+                <p>
+                    <strong>Assigned To:</strong>
+                    You
+                </p>
+
+                <p>
+                    <strong>AI Reason:</strong>
+                    {{ request.aiReason }}
+                </p>
+
+                <button
+                    class="btn btn-success"
+                    (click)="updateStatus(request.RequestId, 'Resolved')"
+                >
+                    Mark Resolved
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Resolved -->
+    <div class="kanban-column">
+
+        <div class="kanban-header">
+            <h4>Resolved</h4>
+        </div>
+
+        <div
+            id="staffResolvedList"
+            cdkDropList
+            [cdkDropListData]="'Resolved'"
+            [cdkDropListConnectedTo]="[
+                'staffPendingList',
+                'staffProgressList',
+                'staffResolvedList'
+            ]"
+            (cdkDropListDropped)="drop($event)"
+            class="kanban-list"
+        >
+
+            <div
+                *ngFor="let request of requests"
+                [hidden]="request.status !== 'Resolved'"
+                cdkDrag
+                [cdkDragData]="request"
+                class="maintenance-card"
+            >
+
+                <h5>{{ request.title }}</h5>
+
+                <p>{{ request.description }}</p>
+
+                <hr>
+
+                <p>
+                    <strong>Location:</strong>
+                    {{ request.location }}
+                </p>
+
+                <p>
+                    <strong>Category:</strong>
+                    {{ request.category }}
+                </p>
+
+                <p>
+                    <strong>Priority:</strong>
+                    {{ request.priority }}
+                </p>
+
+                <p>
+                    <strong>Status:</strong>
+                    {{ request.status }}
+                </p>
+
+                <p>
+                    <strong>Assigned To:</strong>
+                    You
+                </p>
+
+                <p>
+                    <strong>AI Reason:</strong>
+                    {{ request.aiReason }}
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</div>

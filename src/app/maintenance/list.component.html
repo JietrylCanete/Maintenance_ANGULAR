@@ -1,0 +1,61 @@
+<div class="container">
+
+    <h1>Maintenance Requests</h1>
+    <a
+    routerLink="/maintenance/create"
+    class="btn btn-primary mb-3"> Submit Maintenance Request </a>
+    
+    <div *ngIf="loading">
+        Loading maintenance requests...
+    </div>
+
+    <div *ngIf="!loading && requests.length === 0">
+        No maintenance requests found.
+    </div>
+
+    <div *ngIf="!loading && requests.length > 0">
+
+        <div
+            *ngFor="let request of requests"
+            class="card mb-3"
+        >
+            <div class="card-body">
+
+                <h5 class="card-title">
+                    {{ request.title }}
+                </h5>
+
+                <p class="card-text">
+                    {{ request.description }}
+                </p>
+
+                <p class="mb-1">
+                    <strong>Location:</strong>
+                    {{ request.location }}
+                </p>
+
+                <p class="mb-1">
+                    <strong>Status:</strong>
+                    {{ request.status }}
+                </p>
+
+                <p class="mb-0">
+                    <strong>Priority:</strong>
+                    {{ request.priority || 'Not yet classified' }}
+                </p>
+                <p class="mb-0">
+                    <strong>Category:</strong>
+                    {{ request.category || 'Not yet classified' }}
+                </p>
+
+                <p class="mb-0">
+                    <strong>AI Reason:</strong>
+                    {{ request.aiReason || 'No AI reason available' }}
+                </p>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>

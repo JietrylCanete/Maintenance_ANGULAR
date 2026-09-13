@@ -1,0 +1,82 @@
+.kanban-board {
+display: flex;
+gap: 20px;
+width: 100%;
+align-items: flex-start;
+}
+
+.kanban-column {
+flex: 1;
+min-width: 0;
+background: #f5f5f5;
+border-radius: 8px;
+padding: 15px;
+}
+
+.kanban-header {
+margin-bottom: 15px;
+text-align: center;
+}
+
+.kanban-header h4 {
+margin: 0;
+}
+
+.kanban-list {
+min-height: 300px;
+padding: 10px;
+border: 2px dashed #ccc;
+border-radius: 8px;
+background: #fff;
+}
+
+.maintenance-card {
+background: #fff;
+border: 1px solid #ddd;
+border-radius: 8px;
+padding: 15px;
+margin-bottom: 12px;
+cursor: grab;
+box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+}
+
+.maintenance-card:active {
+cursor: grabbing;
+}
+
+.maintenance-card h5 {
+margin-bottom: 10px;
+}
+
+.maintenance-card p {
+margin-bottom: 6px;
+}
+
+.cdk-drag-preview {
+box-sizing: border-box;
+border-radius: 8px;
+box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
+padding: 15px;
+background: #fff;
+}
+
+.cdk-drag-placeholder {
+opacity: 0.3;
+}
+
+.cdk-drop-list-dragging .maintenance-card:not(.cdk-drag-placeholder) {
+transition: transform 200ms ease;
+}
+
+@media (max-width: 768px) {
+.kanban-board {
+flex-direction: column;
+}
+
+
+.kanban-column {
+    width: 100%;
+}
+
+
+}

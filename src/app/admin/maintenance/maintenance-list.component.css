@@ -1,0 +1,64 @@
+.kanban-board {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    overflow-x: auto;
+    padding-bottom: 20px;
+}
+
+.kanban-column {
+    flex: 1;
+    min-width: 280px;
+    background: #f5f5f5;
+    border-radius: 8px;
+    padding: 15px;
+    min-height: 500px;
+}
+
+.kanban-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.kanban-header h4 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.maintenance-card {
+    background: white;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.maintenance-card h5 {
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.maintenance-card p {
+    font-size: 14px;
+}
+
+.maintenance-card hr {
+    margin: 12px 0;
+}
+
+.maintenance-card strong {
+    font-weight: 600;
+}
+
+@media (max-width: 1000px) {
+    .kanban-board {
+        overflow-x: auto;
+    }
+
+    .kanban-column {
+        min-width: 300px;
+    }
+}
