@@ -1,7 +1,27 @@
-﻿<div class="p-4">
-    <div class="container">
-        <h1>Admin</h1>
-        <p>This section can only be accessed by administrators.</p>
-        <p><a routerLink="accounts">Manage Accounts</a></p>
+﻿<div class="page-header">
+    <h1>Admin</h1>
+    <p>This section can only be accessed by administrators.</p>
+</div>
+
+<div class="row g-4">
+    <div class="col-md-6">
+        <a routerLink="accounts" class="action-card">
+            <div class="action-icon"><i class="bi bi-people"></i></div>
+            <div>
+                <h5>Manage Accounts</h5>
+                <p>Create, edit and assign roles and capabilities.</p>
+            </div>
+            <i class="bi bi-arrow-right ms-auto"></i>
+        </a>
+    </div>
+    <div class="col-md-6">
+        <a routerLink="/admin/maintenance" class="action-card">
+            <div class="action-icon"><i class="bi bi-kanban"></i></div>
+            <div>
+                <h5>Maintenance Board</h5>
+                <p>Review requests and assign them to staff.</p>
+            </div>
+            <i class="bi bi-arrow-right ms-auto"></i>
+        </a>
     </div>
 </div>

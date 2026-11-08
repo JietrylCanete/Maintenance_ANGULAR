@@ -1,16 +1,17 @@
-<div class="container">
+<div class="page-header">
+    <h1>Submit Maintenance Request</h1>
+    <p>Describe the problem. Our AI will classify the category and priority automatically.</p>
+</div>
 
-    <h1 class="mb-4">Submit Maintenance Request</h1>
+<div *ngIf="error" class="alert alert-danger">
+    {{ error }}
+</div>
 
-    <div *ngIf="error" class="alert alert-danger">
-        {{ error }}
-    </div>
-
+<div class="card form-card">
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
         <div class="mb-3">
             <label class="form-label">Title</label>
-
             <input
                 type="text"
                 formControlName="title"
@@ -18,16 +19,13 @@
                 placeholder="Example: Leaking faucet"
                 [ngClass]="{ 'is-invalid': submitted && f.title.errors }"
             >
-
             <div *ngIf="submitted && f.title.errors" class="invalid-feedback">
                 Title is required.
             </div>
         </div>
 
-
         <div class="mb-3">
             <label class="form-label">Description</label>
-
             <textarea
                 formControlName="description"
                 class="form-control"
@@ -35,16 +33,13 @@
                 placeholder="Describe the maintenance problem..."
                 [ngClass]="{ 'is-invalid': submitted && f.description.errors }"
             ></textarea>
-
             <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
                 Description is required.
             </div>
         </div>
 
-
         <div class="mb-3">
             <label class="form-label">Location</label>
-
             <input
                 type="text"
                 formControlName="location"
@@ -52,44 +47,29 @@
                 placeholder="Example: Room 203"
                 [ngClass]="{ 'is-invalid': submitted && f.location.errors }"
             >
-
             <div *ngIf="submitted && f.location.errors" class="invalid-feedback">
                 Location is required.
             </div>
         </div>
 
-
-        <div class="mb-3">
-            <label class="form-label">Attach Image</label>
-
+        <div class="mb-4">
+            <label class="form-label">Attach Image <span class="text-muted fw-normal">(optional)</span></label>
             <input
                 type="file"
                 class="form-control"
                 accept="image/jpeg,image/png,image/jpg,image/webp"
                 (change)="onFileSelected($event)"
             >
-
             <small *ngIf="selectedFile" class="text-muted">
-                Selected: {{ selectedFile.name }}
+                <i class="bi bi-paperclip"></i> Selected: {{ selectedFile.name }}
             </small>
         </div>
 
-
-        <button
-            type="submit"
-            class="btn btn-primary"
-            [disabled]="loading"
-        >
+        <button type="submit" class="btn btn-primary" [disabled]="loading">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
             {{ loading ? 'Submitting...' : 'Submit Request' }}
         </button>
-
-        <a
-            routerLink="/maintenance"
-            class="btn btn-secondary ms-2"
-        >
-            Cancel
-        </a>
+        <a routerLink="/maintenance" class="btn btn-outline-secondary ms-2">Cancel</a>
 
     </form>
-
 </div>

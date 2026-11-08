@@ -1,21 +1,49 @@
-﻿<div class="app-container" [ngClass]="{ 'bg-light': account }">
-    <!-- main nav -->
-    <nav class="navbar navbar-expand navbar-dark bg-dark px-3" *ngIf="account">
-        <div class="navbar-nav">
-            <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-item nav-link">Home</a>
-            <a routerLink="/profile" routerLinkActive="active" class="nav-item nav-link">Profile</a>
-            <a routerLink="/maintenance" routerLinkActive="active" class="nav-item nav-link">Maintenance</a>
-            <a *ngIf="account.role === Role.Admin" routerLink="/admin" routerLinkActive="active" class="nav-item nav-link">Admin</a>
-            <button (click)="logout()" class="btn btn-link nav-item nav-link">Logout</button>
+﻿<div class="app-shell" [ngClass]="{ 'has-sidebar': account }">
+
+    <aside class="sidebar" *ngIf="account">
+        <div class="sidebar-brand">
+            <i class="bi bi-tools"></i>
+            <span>MaintainAI</span>
         </div>
-    </nav>
 
-    <!-- subnav router outlet -->
-    <router-outlet name="subnav"></router-outlet>
+        <nav class="sidebar-nav">
+            <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <i class="bi bi-house-door"></i> Home
+            </a>
+            <a routerLink="/maintenance" routerLinkActive="active">
+                <i class="bi bi-clipboard-check"></i> Maintenance
+            </a>
+            <a routerLink="/profile" routerLinkActive="active">
+                <i class="bi bi-person"></i> Profile
+            </a>
 
-    <!-- global alert -->
-    <alert></alert>
+            <ng-container *ngIf="account.role === Role.Admin">
+                <a routerLink="/admin" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                    <i class="bi bi-shield-lock"></i> Admin
+                </a>
+                <a routerLink="/admin/accounts" routerLinkActive="active" class="sub">
+                    <i class="bi bi-people"></i> Accounts
+                </a>
+                <a routerLink="/admin/maintenance" routerLinkActive="active" class="sub">
+                    <i class="bi bi-kanban"></i> Maintenance Board
+                </a>
+            </ng-container>
+        </nav>
 
-    <!-- main router outlet -->
-    <router-outlet></router-outlet>
+        <div class="sidebar-user">
+            <div class="avatar">{{ account.firstName?.charAt(0) }}</div>
+            <div class="user-meta">
+                <div class="name">{{ account.firstName }} {{ account.lastName }}</div>
+                <div class="role">{{ account.role }}</div>
+            </div>
+            <button (click)="logout()" class="btn-logout" title="Logout">
+                <i class="bi bi-box-arrow-right"></i>
+            </button>
+        </div>
+    </aside>
+
+    <main class="main">
+        <alert></alert>
+        <router-outlet></router-outlet>
+    </main>
 </div>

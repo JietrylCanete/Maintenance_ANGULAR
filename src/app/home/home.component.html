@@ -1,6 +1,53 @@
-﻿<div class="p-4">
-    <div class="container">
-        <h1>Hi {{account?.firstName}}!</h1>
-        <p>You're logged in with Angular 15 & JWT!!</p>
+﻿<div class="page">
+    <div class="welcome-banner">
+        <div>
+            <p class="welcome-eyebrow">Dashboard</p>
+            <h1>Welcome back, {{ account?.firstName }}!</h1>
+            <p class="welcome-sub">Submit, track and manage school maintenance requests, with AI-powered classification and prioritization.</p>
+        </div>
+        <span class="role-pill" *ngIf="account?.role">{{ account?.role }}</span>
+    </div>
+
+    <div class="row g-4 mt-1">
+        <div class="col-md-6">
+            <a routerLink="/maintenance" class="action-card">
+                <div class="action-icon"><i class="bi bi-clipboard-check"></i></div>
+                <div>
+                    <h5>Maintenance Requests</h5>
+                    <p>View your requests and their current status.</p>
+                </div>
+                <i class="bi bi-arrow-right ms-auto"></i>
+            </a>
+        </div>
+        <div class="col-md-6">
+            <a routerLink="/maintenance/create" class="action-card">
+                <div class="action-icon"><i class="bi bi-plus-circle"></i></div>
+                <div>
+                    <h5>New Request</h5>
+                    <p>Report a problem and let AI categorize it.</p>
+                </div>
+                <i class="bi bi-arrow-right ms-auto"></i>
+            </a>
+        </div>
+        <div class="col-md-6">
+            <a routerLink="/profile" class="action-card">
+                <div class="action-icon"><i class="bi bi-person"></i></div>
+                <div>
+                    <h5>My Profile</h5>
+                    <p>See and update your account details.</p>
+                </div>
+                <i class="bi bi-arrow-right ms-auto"></i>
+            </a>
+        </div>
+        <div class="col-md-6 " *ngIf="account?.role === 'Staff'">
+            <a routerLink="/maintenance/assigned" class="action-card">
+                <div class="action-icon"><i class="bi bi-list-task"></i></div>
+                <div>
+                    <h5>Assigned Tasks</h5>
+                    <p>Requests assigned to you (Staff).</p>
+                </div>
+                <i class="bi bi-arrow-right ms-auto"></i>
+            </a>
+        </div>
     </div>
 </div>

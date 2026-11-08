@@ -1,12 +1,12 @@
-<nav class="admin-nav navbar navbar-expand navbar-light px-3">
+<nav *ngIf="account?.role === Role.Staff" class="admin-nav navbar navbar-expand navbar-light px-3">
     <div class="navbar-nav">
-        <a routerLink="/maintenance/assigned" class="nav-item nav-link">Assigned Tasks</a>
+        <a routerLink="/maintenance" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-item nav-link">Requests</a>
+        <a routerLink="/maintenance/assigned" routerLinkActive="active" class="nav-item nav-link">Assigned Tasks</a>
     </div>
 </nav>
 
 <div class="p-4">
     <div class="container">
-    <router-outlet></router-outlet>
+        <router-outlet></router-outlet>
+    </div>
 </div>
-</div>
-

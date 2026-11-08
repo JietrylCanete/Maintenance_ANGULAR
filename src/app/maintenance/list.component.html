@@ -1,61 +1,47 @@
-<div class="container">
-
-    <h1>Maintenance Requests</h1>
-    <a
-    routerLink="/maintenance/create"
-    class="btn btn-primary mb-3"> Submit Maintenance Request </a>
-    
-    <div *ngIf="loading">
-        Loading maintenance requests...
+<div class="page-header d-flex justify-content-between align-items-center">
+    <div>
+        <h1>Maintenance Requests</h1>
+        <p>Track the requests you've submitted</p>
     </div>
+    <a routerLink="/maintenance/create" class="btn btn-primary">
+        <i class="bi bi-plus-lg me-1"></i> New Request
+    </a>
+</div>
 
-    <div *ngIf="!loading && requests.length === 0">
-        No maintenance requests found.
-    </div>
+<div *ngIf="loading" class="text-center text-muted py-5">
+    <span class="spinner-border spinner-border-sm me-2"></span>Loading maintenance requests...
+</div>
 
-    <div *ngIf="!loading && requests.length > 0">
+<div *ngIf="!loading && requests.length === 0" class="empty-state">
+    <i class="bi bi-clipboard-x"></i>
+    No maintenance requests found.
+</div>
 
-        <div
-            *ngFor="let request of requests"
-            class="card mb-3"
-        >
-            <div class="card-body">
+<div *ngIf="!loading && requests.length > 0">
+    <div *ngFor="let request of requests" class="card request-card">
 
-                <h5 class="card-title">
-                    {{ request.title }}
-                </h5>
-
-                <p class="card-text">
-                    {{ request.description }}
-                </p>
-
-                <p class="mb-1">
-                    <strong>Location:</strong>
-                    {{ request.location }}
-                </p>
-
-                <p class="mb-1">
-                    <strong>Status:</strong>
+        <div class="d-flex justify-content-between align-items-start gap-3">
+            <h5 class="request-title">{{ request.title }}</h5>
+            <div class="d-flex gap-2">
+                <span class="badge-priority" [ngClass]="'priority-' + (request.priority || 'none').toLowerCase()">
+                    {{ request.priority || 'Unclassified' }}
+                </span>
+                <span class="badge-status" [ngClass]="'status-' + (request.status || '').toLowerCase().replace(' ', '-')">
                     {{ request.status }}
-                </p>
-
-                <p class="mb-0">
-                    <strong>Priority:</strong>
-                    {{ request.priority || 'Not yet classified' }}
-                </p>
-                <p class="mb-0">
-                    <strong>Category:</strong>
-                    {{ request.category || 'Not yet classified' }}
-                </p>
-
-                <p class="mb-0">
-                    <strong>AI Reason:</strong>
-                    {{ request.aiReason || 'No AI reason available' }}
-                </p>
-
+                </span>
             </div>
         </div>
 
-    </div>
+        <p class="request-desc">{{ request.description }}</p>
 
+        <div class="request-meta">
+            <span><i class="bi bi-geo-alt"></i>{{ request.location }}</span>
+            <span><i class="bi bi-tag"></i>{{ request.category || 'Not yet classified' }}</span>
+        </div>
+
+        <div class="ai-box">
+            <i class="bi bi-stars"></i>
+            <strong>AI Reason:</strong> {{ request.aiReason || 'No AI reason available' }}
+        </div>
+    </div>
 </div>

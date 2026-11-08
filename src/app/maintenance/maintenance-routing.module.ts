@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import { AuthGuard } from '@app/_helpers';
+import { Role } from '@app/_models';
 import { LayoutComponent } from './layout.component';
 import { ListComponent } from './list.component';
 import { CreateComponent } from './create.component';
@@ -13,7 +15,12 @@ const routes: Routes = [
         children: [
             { path: '', component: ListComponent },
             { path: 'create', component: CreateComponent },
-            { path: 'assigned', component: StaffListComponent }
+            {
+                path: 'assigned',
+                component: StaffListComponent,
+                canActivate: [AuthGuard],
+                data: { roles: [Role.Staff] }
+            }
         ]
     }
 ];

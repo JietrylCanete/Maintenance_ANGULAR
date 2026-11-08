@@ -1,6 +1,32 @@
-﻿<h1>My Profile</h1>
-<p *ngIf="account">
-    <strong>Name: </strong> {{account.title}} {{account.firstName}} {{account.lastName}}<br />
-    <strong>Email: </strong> {{account.email}}
-</p>
-<p><a routerLink="update">Update Profile</a></p>
+﻿<div class="page-header">
+    <h1>My Profile</h1>
+    <p>Your account information</p>
+</div>
+
+<div class="card profile-card" *ngIf="account">
+    <div class="profile-top">
+        <div class="profile-avatar">{{ account.firstName?.charAt(0) }}</div>
+        <div>
+            <h4 class="mb-1">{{ account.title }} {{ account.firstName }} {{ account.lastName }}</h4>
+            <span class="role-pill dark">{{ account.role }}</span>
+        </div>
+        <a routerLink="update" class="btn btn-primary ms-auto">
+            <i class="bi bi-pencil-square me-1"></i> Edit profile
+        </a>
+    </div>
+
+    <div class="profile-rows">
+        <div class="profile-row">
+            <span class="label">Full name</span>
+            <span class="value">{{ account.title }} {{ account.firstName }} {{ account.lastName }}</span>
+        </div>
+        <div class="profile-row">
+            <span class="label">Email</span>
+            <span class="value">{{ account.email }}</span>
+        </div>
+        <div class="profile-row">
+            <span class="label">Role</span>
+            <span class="value">{{ account.role }}</span>
+        </div>
+    </div>
+</div>
