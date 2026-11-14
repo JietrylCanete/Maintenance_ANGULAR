@@ -1,0 +1,16 @@
+.filter-card { padding: 18px 20px; margin-bottom: 16px; }
+.filter-card .form-label { margin-bottom: 4px; color: #64748b; font-size: .75rem; text-transform: uppercase; letter-spacing: .04em; }
+
+.when { white-space: nowrap; color: #475569; font-size: .85rem; line-height: 1.4; }
+.details { max-width: 520px; word-break: break-word; font-size: .9rem; }
+
+.action-pill { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 999px; font-size: .75rem; font-weight: 600; white-space: nowrap; }
+.tone-account { background: #e0e7ff; color: #4338ca; }
+.tone-request { background: #dbeafe; color: #1d4ed8; }
+.tone-system  { background: #ede9fe; color: #6d28d9; }
+.tone-assign  { background: #ffedd5; color: #c2410c; }
+.tone-status  { background: #dcfce7; color: #15803d; }
+.tone-file    { background: #e2e8f0; color: #475569; }
+
+.pager { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; padding: 12px 16px; border-top: 1px solid #e2e8f0; background: #f8fafc; }
+.badge-role.role-system { background: #ede9fe; color: #6d28d9; }

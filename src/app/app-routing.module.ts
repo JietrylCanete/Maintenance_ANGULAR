@@ -9,12 +9,14 @@ const accountModule = () => import('./account/account.module').then(x => x.Accou
 const adminModule = () => import('./admin/admin.module').then(x => x.AdminModule);
 const profileModule = () => import('./profile/profile.module').then(x => x.ProfileModule);
 const maintenanceModule = () => import('./maintenance/maintenance.module').then(x => x.MaintenanceModule);
+const activityModule = () => import('./activity/activity.module').then(x => x.ActivityModule);
 
 const routes: Routes = [
     { path: '', component: HomeComponent, canActivate: [AuthGuard] },
     { path: 'account', loadChildren: accountModule },
     { path: 'profile', loadChildren: profileModule, canActivate: [AuthGuard] },
     { path: 'maintenance', loadChildren: maintenanceModule, canActivate: [AuthGuard] },
+    { path: 'activity', loadChildren: activityModule, canActivate: [AuthGuard] },
     { path: 'admin', loadChildren: adminModule, canActivate: [AuthGuard], data: { roles: [Role.Admin] } },
 
     // otherwise redirect to home

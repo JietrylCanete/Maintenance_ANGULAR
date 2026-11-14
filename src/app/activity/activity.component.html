@@ -1,0 +1,132 @@
+<div class="page-wide">
+
+    <div class="page-header">
+        <h1>Activity Log</h1>
+        <p *ngIf="isAdmin">Everything that happens in the system, newest first</p>
+        <p *ngIf="!isAdmin">Your actions and everything that happens on your requests, newest first</p>
+    </div>
+
+    <!-- Filters -->
+    <div class="card filter-card">
+        <form [formGroup]="form" (ngSubmit)="applyFilters()">
+            <div class="row g-3 align-items-end">
+
+                <div class="col-12 col-md-6 col-lg-3">
+                    <label class="form-label">Action</label>
+                    <select formControlName="actionType" class="form-select">
+                        <option value="">All actions</option>
+                        <option *ngFor="let action of actions" [value]="action.value">{{ action.label }}</option>
+                    </select>
+                </div>
+
+                <div class="col-6 col-md-3 col-lg-2">
+                    <label class="form-label">From</label>
+                    <input type="date" formControlName="startDate" class="form-control" />
+                </div>
+
+                <div class="col-6 col-md-3 col-lg-2">
+                    <label class="form-label">To</label>
+                    <input type="date" formControlName="endDate" class="form-control" />
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-3" *ngIf="isAdmin">
+                    <label class="form-label">User</label>
+                    <select formControlName="userId" class="form-select">
+                        <option value="">Everyone</option>
+                        <option *ngFor="let account of accounts" [value]="account.AccountId">
+                            {{ account.firstName }} {{ account.lastName }} ({{ account.role }})
+                        </option>
+                    </select>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-auto">
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="includeLogins" formControlName="includeLogins" />
+                        <label class="form-check-label" for="includeLogins">Include logins</label>
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg d-flex gap-2 justify-content-lg-end">
+                    <button type="submit" class="btn btn-primary" [disabled]="loading || rangeInvalid">
+                        <i class="bi bi-funnel me-1"></i> Apply
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary" (click)="resetFilters()" [disabled]="loading">
+                        Reset
+                    </button>
+                </div>
+            </div>
+
+            <div *ngIf="rangeInvalid" class="text-danger small mt-2">
+                The "From" date must be on or before the "To" date.
+            </div>
+        </form>
+    </div>
+
+    <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+    <!-- Table -->
+    <div class="card table-card">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th style="width:16%">When</th>
+                        <th style="width:16%">Action</th>
+                        <th style="width:20%">By</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let log of logs; trackBy: trackById" [attr.title]="tooltip(log)">
+                        <td class="when">{{ log.timestamp | date:'MMM d, y' }}<br />{{ log.timestamp | date:'h:mm a' }}</td>
+
+                        <td>
+                            <span class="action-pill" [ngClass]="'tone-' + info(log.actionType).tone">
+                                <i class="bi" [ngClass]="info(log.actionType).icon"></i>
+                                {{ info(log.actionType).label }}
+                            </span>
+                        </td>
+
+                        <td>
+                            <div class="fw-medium">{{ log.byMe ? 'You' : log.actorName }}</div>
+                            <span *ngIf="log.actorRole" class="badge-role"
+                                  [ngClass]="'role-' + log.actorRole.toLowerCase()">{{ log.actorRole }}</span>
+                            <div *ngIf="log.actorEmail" class="text-muted small">{{ log.actorEmail }}</div>
+                        </td>
+
+                        <td>
+                            <span *ngIf="log.requestId" class="chip">Request #{{ log.requestId }}</span>
+                            <div class="details">{{ log.actionDetails || '-' }}</div>
+                        </td>
+                    </tr>
+
+                    <tr *ngIf="loading">
+                        <td colspan="4" class="text-center py-4">
+                            <span class="spinner-border spinner-border-sm me-2"></span>Loading activity...
+                        </td>
+                    </tr>
+
+                    <tr *ngIf="!loading && logs.length === 0">
+                        <td colspan="4" class="text-center text-muted py-5">
+                            <i class="bi bi-clock-history d-block fs-3 mb-2"></i>
+                            No activity found for these filters.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="pager">
+            <span class="text-muted small">Showing {{ firstShown }}-{{ lastShown }} of {{ total }}</span>
+            <div class="d-flex align-items-center gap-2">
+                <button class="btn btn-sm btn-outline-secondary" (click)="goTo(page - 1)" [disabled]="loading || page <= 1">
+                    <i class="bi bi-chevron-left"></i> Previous
+                </button>
+                <span class="small">Page {{ page }} of {{ totalPages }}</span>
+                <button class="btn btn-sm btn-outline-secondary" (click)="goTo(page + 1)" [disabled]="loading || page >= totalPages">
+                    Next <i class="bi bi-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -16,6 +16,9 @@
             <a routerLink="/profile" routerLinkActive="active">
                 <i class="bi bi-person"></i> Profile
             </a>
+            <a routerLink="/activity" routerLinkActive="active">
+                <i class="bi bi-clock-history"></i> Activity Log
+            </a>
 
             <ng-container *ngIf="account.role === Role.Admin">
                 <a routerLink="/admin" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
